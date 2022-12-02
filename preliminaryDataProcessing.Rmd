@@ -1,0 +1,65 @@
+---
+title: "Preliminary Data Processing (ESSround9 ed. 02)"
+output: html_document
+date: "2022-12-02"
+---
+
+```{r Loading Library & Data, message = F}
+library(dplyr)
+library(tidyverse)
+library(mice)
+
+#Input Data
+ess <- readRDS("Ess round 9.RDS")
+```
+
+Create a function to find the column full of NAs
+```{r Find NA Column Function}
+#Find the column full of NAs
+findNACol <- function(data){
+  ind_vec <- c()
+  j <- 1
+  for (i in 1 : length(data[1, ])) {
+    if(sum(is.na(data[, i])) == length(data[, i])){
+      ind_vec[j] <- i
+      j <- j + 1
+    }
+  }
+  return(ind_vec)
+}
+```
+
+Cutting the whole dataset by countries and get rid of NA columns
+```{r}
+cutd <- function(data = ess){
+  cntrynames <- names(table(data$cntry))
+  num_cntry <- length(cntrynames)
+  cntrydata_list <- list()
+  for (k in 1 : num_cntry) {
+    cntry <- filter(data, cntry == cntrynames[k])
+    index <- findNACol(cntry)
+    processed <- cntry[, -index]
+    
+    cntrydata_list[[k]] <- processed
+  }
+  
+  names(cntrydata_list) <- cntrynames
+  return(cntrydata_list)
+}
+
+cntrydatalist <- cutd(ess)
+```
+
+And now we get a list of each countries dataset and also remove the NA columns.
+
+Here we can draw a barplot of the percentage every countries' missing values
+```{r}
+n_mvec <- matrix(NaN, nrow = 1, ncol = length(cntrydatalist))
+for (i in 1 : length(cntrydatalist)) {
+  n_mvec[i] <- sum(is.na(cntrydatalist[[i]])) / (dim(cntrydatalist[[i]])[1] * dim(cntrydatalist[[i]])[2]) * 100
+}
+colnames(n_mvec) <- names(cntrydatalist)
+barplot(n_mvec, cex.names = 0.5, ylim = c(0, 0.8), main = "The missing value percentage in each country (%)")
+```
+
+
