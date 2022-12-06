@@ -72,27 +72,65 @@ Take NL for example, lets take a look of which variables include missing values:
 ```{r}
 which(colSums(is.na(cntrydatalist$NL))>0)
 
-names(which(colSums(is.na(cntrydatalist$NL))>0))
+m_NL_n <- names(which(colSums(is.na(cntrydatalist$NL))>0))
+m_NL_n
 ```
 From the ESS9 codebook, these variables are:
  
- - eisced: Highest level of education
+### eisced: Highest level of education
  
 ```{r, echo=FALSE, out.width = '75%'}
 knitr::include_graphics("pics/eisced.png")
 summary(cntrydatalist$NL["eisced"])
 ```
 
- - wkhct: Total contracted hours per week in main job overtime excluded
+### wkhct: Total contracted hours per week in main job overtime excluded
  
 ```{r, echo=FALSE, out.width = '75%'}
 knitr::include_graphics("pics/wkhct.png")
 summary(cntrydatalist$NL["wkhct"])
 ```
 
- - wkhtot: Total hours normally worked per week in main job overtime included
+### wkhtot: Total hours normally worked per week in main job overtime included
 
 ```{r, echo=FALSE, out.width = '75%'}
 knitr::include_graphics("pics/wkhtot.png")
 summary(cntrydatalist$NL["wkhtot"])
+```
+
+### eiscedp: Partner's highest level of education
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/eiscedp.png")
+summary(cntrydatalist$NL["eiscedp"])
+```
+
+### wkhtotp: Hours normally worked a week in main job overtime included, partner
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/wkhtotp.png")
+summary(cntrydatalist$NL["wkhtotp"])
+```
+
+### eiscedf: Father's highest level of education
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/eiscedf_1.png")
+knitr::include_graphics("pics/eiscedf_2.png")
+summary(cntrydatalist$NL["eiscedf"])
+```
+
+### eiscedm: Mother's highest level of education
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/eiscedm.png")
+summary(cntrydatalist$NL["eiscedm"])
+```
+
+ - inwtm: Interview length in minutes, main questionnaire (Not Interested)
+ 
+So we have: 4 ordinal variables include missing values and 3 numerical variables include missing values.
+
+```{r}
+md.pattern(cntrydatalist$NL[m_NL_n])
 ```
