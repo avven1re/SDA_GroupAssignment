@@ -51,6 +51,11 @@ cutd <- function(data = ess){
 cntrydatalist <- cutd(ess)
 ```
 
+We can see that each country has about 300~340 variables:
+```{r}
+summary(cntrydatalist)[, 1:2]
+```
+
 And now we get a list of each countries dataset and also remove the NA columns.
 
 Here we can draw a barplot of the percentage every countries' missing values
@@ -63,4 +68,31 @@ colnames(n_mvec) <- names(cntrydatalist)
 barplot(n_mvec, cex.names = 0.5, ylim = c(0, 0.8), main = "The missing value percentage in each country (%)")
 ```
 
+Take NL for example, lets take a look of which variables include missing values:
+```{r}
+which(colSums(is.na(cntrydatalist$NL))>0)
 
+names(which(colSums(is.na(cntrydatalist$NL))>0))
+```
+From the ESS9 codebook, these variables are:
+ 
+ - eisced: Highest level of education
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/eisced.png")
+summary(cntrydatalist$NL["eisced"])
+```
+
+ - wkhct: Total contracted hours per week in main job overtime excluded
+ 
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/wkhct.png")
+summary(cntrydatalist$NL["wkhct"])
+```
+
+ - wkhtot: Total hours normally worked per week in main job overtime included
+
+```{r, echo=FALSE, out.width = '75%'}
+knitr::include_graphics("pics/wkhtot.png")
+summary(cntrydatalist$NL["wkhtot"])
+```
