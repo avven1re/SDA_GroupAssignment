@@ -9,6 +9,7 @@ github: https://github.com/avven1re/SDA_GroupAssignment
 library(dplyr)
 library(tidyverse)
 library(mice)
+library(ggmice)
 
 #Input Data
 ess <- readRDS("Ess round 9.RDS")
@@ -132,5 +133,44 @@ summary(cntrydatalist$NL["eiscedm"])
 So we have: 4 ordinal variables include missing values and 3 numerical variables include missing values.
 
 ```{r}
-md.pattern(cntrydatalist$NL[m_NL_n])
+# "IE" "AT" "PT" "HU" "PL"
+#summary(cntrydatalist$AT$hinctnta)
+
+AT <- cntrydatalist$AT
+IE <- cntrydatalist$IE
+PT <- cntrydatalist$PT
+HU <- cntrydatalist$HU
+PL <- cntrydatalist$PL
+
+AT$hinctnta[AT$hinctnta == 88] <- NA
+AT$hinctnta[AT$hinctnta == 77] <- NA
+
+IE$hinctnta[IE$hinctnta == 88] <- NA
+IE$hinctnta[IE$hinctnta == 77] <- NA
+
+PT$hinctnta[PT$hinctnta == 88] <- NA
+PT$hinctnta[PT$hinctnta == 77] <- NA
+
+HU$hinctnta[HU$hinctnta == 88] <- NA
+HU$hinctnta[HU$hinctnta == 77] <- NA
+
+PL$hinctnta[PL$hinctnta == 88] <- NA
+PL$hinctnta[PL$hinctnta == 77] <- NA
+```
+
+```{r}
+na_mat <- matrix(c(sum(is.na(AT$hinctnta)), sum(is.na(IE$hinctnta)), 
+                   sum(is.na(PT$hinctnta)), sum(is.na(HU$hinctnta)), sum(is.na(PL$hinctnta))), 1, 5)
+colnames(na_mat) <- c("AT", "IE", "PT", "HU", "PL")
+barplot(na_mat, main = "The number of missing values of hinctnta")
+
+```
+
+```{r}
+per_na_mat <- matrix(c(sum(is.na(AT$hinctnta))/dim(AT)[1], sum(is.na(IE$hinctnta))/dim(IE)[1], 
+                   sum(is.na(PT$hinctnta))/dim(PT)[1], sum(is.na(HU$hinctnta))/dim(HU)[1],
+                   sum(is.na(PL$hinctnta))/dim(PL)[1]), 1, 5)
+colnames(per_na_mat) <- c("AT", "IE", "PT", "HU", "PL")
+barplot(per_na_mat, main = "The proportion of missing values of hinctnta in each country", ylim = c(0, 2.0))
+
 ```

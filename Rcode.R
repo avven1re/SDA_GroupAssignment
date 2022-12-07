@@ -31,3 +31,11 @@ ind_NL <- findNACol(ess_NL)
 
 ess_NL2 <- ess_NL[, -ind_NL]
 colSums(ess_NL2)
+
+
+
+set.seed(1882252)
+
+length(cntrydatalist)
+c <- sample(27, 5)
+names(cntrydatalist)[c]
