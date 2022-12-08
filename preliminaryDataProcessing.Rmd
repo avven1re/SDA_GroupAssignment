@@ -142,6 +142,23 @@ PT <- cntrydatalist$PT
 HU <- cntrydatalist$HU
 PL <- cntrydatalist$PL
 
+barplot(table(IE$hinctnta), names.arg=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Refusal", "Don't Know"),
+        horiz = F, las = 2, col="#69b3a2", main = "The Distribution of hinctnta in AT")
+
+barplot(table(AT$hinctnta), names.arg=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Refusal", "Don't Know"),
+        horiz = F, las = 2, col="#69b3a2", main = "The Distribution of hinctnta in IE")
+
+barplot(table(PT$hinctnta), names.arg=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Refusal", "Don't Know"),
+        horiz = F, las = 2, col="#69b3a2", main = "The Distribution of hinctnta in PT")
+
+barplot(table(HU$hinctnta), names.arg=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Refusal", "Don't Know"),
+        horiz = F, las = 2, col="#69b3a2", main = "The Distribution of hinctnta in HU")
+
+barplot(table(PL$hinctnta), names.arg=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Refusal", "Don't Know"),
+        horiz = F, las = 2, col="#69b3a2", main = "The Distribution of hinctnta in PL")
+```
+
+```{r}
 AT$hinctnta[AT$hinctnta == 88] <- NA
 AT$hinctnta[AT$hinctnta == 77] <- NA
 
