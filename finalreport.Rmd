@@ -1,5 +1,6 @@
 ---
 title: "Missing Values in the ESS"
+author: "Heleen Brüggen, Min Wen Yang, Pepijn Vink, and Solichatus Zaroh"
 output: word_document
 ---
 
